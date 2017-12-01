@@ -1,0 +1,30 @@
+<div class="row justify-content-center">
+  <div class="col-4">
+    <er-heading type="1" text="Login"></er-heading>
+    <ng-container *ngIf="errors$ | async as errors">
+      {{ errors | json }}
+    </ng-container>
+    <form [formGroup]="loginForm" novalidate (submit)="login()">
+      <fieldset [disabled]="isSubmitting">
+        <fieldset>
+          <input type="email"
+            formControlName="email"
+            placeholder="Email Address/Username" />
+        </fieldset>
+        <fieldset>
+          <input type="password"
+            formControlName="password"
+            placeholder="Password" />
+        </fieldset>
+        <div class="row align-items-center">
+          <div class="col">
+            <er-button type="submit" className="info">Login</er-button>
+          </div>
+          <div class="col">
+            <a routerLink="/authentication/forgot-password">Forgot Password?</a>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+</div>

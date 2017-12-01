@@ -1,0 +1,67 @@
+<p>
+  workflow-list works!
+  <ol>
+    <li>It takes an average of
+      <strong> 3 to 5 seconds</strong> for data (1,110 claims) to load from server on application start.</li>
+    <li>During this time, other crud operations can extend the load time to 20 seconds or more.</li>
+    <li>After initial load, encrypting 1,110 claims and storing in indexedDB is approximately 230ms</li>
+    <li>After initial load, decrypting 1,110 claims and displaying is approximately 14 seconds</li>
+  </ol>
+
+
+  <!-- ///////////////////////////////////////////////////////////////////////////////// -->
+  <hr />
+  <div>
+    <h3>Encrypt and Add Claims to IndexedDB:</h3>
+    <button (click)="encryptAndAddAllClaimsToIndexedDB2()">Encrypt and Add Claims</button>
+  </div>
+  <hr />
+  <div>
+    <h3>Decrypt from IndexedDB to sessionStorage &amp; to screen:</h3>
+    <button (click)="decryptAndShowAllClaimsFromIndexedDB2()">decrypt And Show</button>
+    <div *ngFor="let claim of theClaims">
+      {{claim.id}} | {{claim.address}} | {{claim.applicant}} | {{claim.application_date | date}} | {{claim?.jobs.length}}
+    </div>
+  </div>
+  <hr />
+  <div>
+    <h3>View From Session Storage:</h3>
+    <button (click)="viewFromSessionStorage()">View From Session Storage</button>
+    <div *ngFor="let claim of viewClaimSessionStorage">
+      {{claim.id}} | {{claim.address}} | {{claim.applicant}} | {{claim.application_date | date}} | {{claim?.jobs.length}}
+    </div>
+  </div>
+  <hr />
+
+  <div>
+    <h3>Query Session Storage by Id - Optimized for Id query:</h3>
+    <button (click)="querySessionStorageById()">query session storage by Id</button>
+    <div *ngFor="let c of sessionQueryById$ | async">
+      {{c.id}} {{c.suburb}}
+    </div>
+  </div>
+  <hr />
+  <div>
+    <h3>Query Session Storage by any property:</h3>
+    <button (click)="querySessionStorageByProp()">query session storage by any prop</button>
+    <div *ngFor="let c of sessionQueryByProp$ | async">
+      {{c.id}} {{c.suburb}}
+    </div>
+  </div>
+  <hr />
+
+  <!-- Only With Method 1--> 
+  <div>
+    <h3>Swap claims from IndexedDB every second.</h3>
+    <button (click)="viewClaimAtATimeFromIndexedDB()">View Claim at a time from IndexedDB </button>
+    <!--retrieve a claim and decrypt to show -->
+    <h2 *ngIf="singleClaim$ | async as claim">
+      {{claim.id}} | | {{claim.address}} | {{claim.applicant}} | {{claim.application_date | date}} | {{claim.jobs.length}}
+    </h2>
+  </div>
+  <hr />
+
+  <!-- <div>
+    <h3>Adding a claim</h3>
+   <button (click)="createClaim()">Add Claim</button>
+  </div> -->
